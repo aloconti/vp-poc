@@ -14,11 +14,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    maxWidth: '18%',
+    // width: '100%',
+    width: '18%',
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
@@ -50,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   weekday: {
       paddingLeft: '16px',
       width: '60%',
+  },
+  today: {
+      border: '3px solid red',
   }
 }));
 
@@ -57,13 +61,18 @@ const useStyles = makeStyles((theme) => ({
 export default function Day(props) {
   const classes = useStyles();
 
+  const isToday = (
+      props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex == new Date('10-07-2020').getDate() &&
+      props.all.weeks[props.weekIndex].startDate.getMonth() == new Date('10-07-2020').getMonth()
+   )
+
   return (
-    <Card className={classes.root}>
+    <Card className={clsx(classes.root, isToday && classes.today)}>
       <CardContent>
       <div className={classes.header}>
             <Paper className={classes.paper}>
-                <Typography className={classes.day}>28</Typography>
-                <Typography className={classes.month}>JUL</Typography>
+                <Typography className={classes.day}>{props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex}</Typography>
+                <Typography className={classes.month}>{props.all.weeks[props.weekIndex].startDate.toLocaleString('default', { month: 'short' }).toUpperCase()}</Typography>
             </Paper>
             <Typography className={classes.weekday} variant="h5" component="h2">
             {props.day}
@@ -71,7 +80,7 @@ export default function Day(props) {
         </div>
         
         <List component="nav" aria-label="main mailbox folders">
-            {['Fotbal', 'Baschet', 'Handbal'].map(item => <Course title={item}/>)}
+            {['Fotbal', 'Baschet', 'Handbal'].map((item, index) => <Course title={item} key={index} {...props} isToday={isToday}/>)}
         </List>
       </CardContent>
     </Card>

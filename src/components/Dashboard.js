@@ -20,6 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Calendar from './Calendar';
+import { connect } from 'react-redux';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   appBarColorPrimary: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#172f71',
   },
   appBarColorSecondary: {
     backgroundColor: theme.palette.secondary.main,
@@ -82,6 +83,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   drawerPaper: {
     position: 'relative',
@@ -122,9 +125,22 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  university: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1rem',
+    fontWeight: '300',
+  },
+  Sidemenu: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 'inherit',
+    justifyContent: 'space-between',
+  }
 }));
 
-export default function Dashboard(props) {
+function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -138,7 +154,7 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift, props.elevation ? classes.appBarColorSecondary : classes.appBarColorPrimary)}>
+      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift, props.all.elevation === 1 ? classes.appBarColorSecondary : classes.appBarColorPrimary)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
@@ -150,12 +166,14 @@ export default function Dashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+          <div className={classes.university}>
+            {/* <img style={{width: "40px", marginRight: "10px"}} src="https://unefsb.ro/wp-content/uploads/2016/08/cropped-stema-unefs-512.png"/> */}
+          Universitatea Națională de Educație Fizică și Sport 
+          </div>
+          Platformă de Învățământ la Distanță
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+          <img style={{width: "40px", marginRight: "10px"}} src="https://unefsb.ro/wp-content/uploads/2016/08/cropped-stema-unefs-512.png"/>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -167,17 +185,18 @@ export default function Dashboard(props) {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-        <Typography component="h1" variant="h5" color="inherit" noWrap className={classes.title}>
-            Menu
+        <Typography component="h6" variant="h6" color="inherit" noWrap className={classes.title}>
+            {props.all.elevation === 0 ? "ADMIN" : props.all.elevation === 1 ? "Profesor" : "Student"}
           </Typography>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
         </div>
         <Divider />
+        <div className={classes.Sidemenu}>
         <List>{mainListItems}</List>
-        <Divider />
         <List>{secondaryListItems}</List>
+        </div>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -194,3 +213,13 @@ export default function Dashboard(props) {
     </div>
   );
 }
+
+
+
+function mapStateToProps(state) {
+  return {
+      all: state.all
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard);

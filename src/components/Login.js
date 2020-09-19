@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { connect } from 'react-redux';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import clsx from 'clsx';
 
 function Copyright() {
   return (
@@ -33,9 +39,24 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
   avatar: {
     margin: theme.spacing(1),
+  },
+  avatarStudent: {
+    backgroundColor: theme.palette.primary.light,
+  },
+  avatarProfesor: {
     backgroundColor: theme.palette.secondary.main,
+  },
+  avatarAdmin: {
+    backgroundColor: theme.palette.primary.dark,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -46,21 +67,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(props) {
+function Login(props) {
   const classes = useStyles();
 
+  const handleChange = (event) => {
+    props.dispatch({
+      type: "STORE_ELEVATION",
+      elevation: event.target.value
+  })
+  };
+  
   return (
     <Container component="main" maxWidth="xs" >
       <CssBaseline />
-      <Link href="#" variant="body2" onClick={() => props.setElevation(!props.elevation)}>
-      Switch to {!props.elevation ? ' Professor ' : ' Student '} Login
-              </Link>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">User type</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={props.all.elevation}
+          onChange={handleChange}
+        >
+          <MenuItem value={2}>Student</MenuItem>
+          <MenuItem value={1}>Profesor</MenuItem>
+          <MenuItem value={0}>Admin</MenuItem>
+        </Select>
+      </FormControl>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <Avatar className={clsx(classes.avatar && props.all.elevation === 0 ? classes.avatarAdmin : props.all.elevation === 1 ? classes.avatarProfesor : classes.avatarStudent)}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {props.elevation && 'Professor '}Sign in
+          {props.all.elevation === 0 ? 'ADMIN ' : props.all.elevation === 1 ? 'Professor ' : 'Student '}Sign in
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -91,7 +129,10 @@ export default function Login(props) {
           />
           <Button
             // type="submit"
-            onClick={() => props.step1(true)}
+            onClick={() => props.dispatch({
+                type: "STORE_LOGGED",
+                logged: true
+            })}
             fullWidth
             variant="contained"
             color="primary"
@@ -119,3 +160,12 @@ export default function Login(props) {
     </Container>
   );
 }
+
+
+function mapStateToProps(state) {
+    return {
+        all: state.all
+    }
+}
+
+export default connect(mapStateToProps)(Login);

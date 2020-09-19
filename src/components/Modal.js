@@ -13,6 +13,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
+import { connect } from 'react-redux';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Modal(props) {
+function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
@@ -42,8 +43,25 @@ export default function Modal(props) {
     <Dialog fullWidth onClose={handleClose} aria-labelledby="max-width-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title" style={{textAlign: 'center'}}>{props.course}</DialogTitle>
       <div className={classes.button}>
-        <Button variant="contained" color="secondary" disableElevation style={{fontSize: '1.5em'}}>
+        <Button variant="contained" color="secondary" disableElevation style={{fontSize: '1.5em'}} onClick={() => props.dispatch({
+                type: "STORE_LIVE",
+                live: {
+                  day: props.day,
+                  month: props.month,
+                  course: props.course
+                }
+            })}>
           Join Meeting
+        </Button>
+        <Button variant="contained" color="secondary" disableElevation style={{fontSize: '1.5em'}} onClick={() => props.dispatch({
+                type: "STOP_LIVE",
+                live: {
+                  day: props.day,
+                  month: props.month,
+                  course: props.course
+                }
+            })}>
+          Stop Meeting
         </Button>
         <Button color="primary">Play recording</Button>
       </div>
@@ -57,3 +75,11 @@ Modal.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
+
+function mapStateToProps(state) {
+  return {
+      all: state.all
+  }
+}
+
+export default connect(mapStateToProps)(Modal);

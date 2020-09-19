@@ -3,32 +3,35 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
+// import DashboardIcon from '@material-ui/icons/Dashboard';
+import HomeIcon from '@material-ui/icons/Home';
+import EventIcon from '@material-ui/icons/Event';
+import VideoIcon from '@material-ui/icons/Videocam';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import LayersIcon from '@material-ui/icons/LibraryBooks';
+import PeopleIcon from '@material-ui/icons/Person';
+import SettingsIcon from '@material-ui/icons/Settings';
+import LogoffIcon from '@material-ui/icons/PowerSettingsNew';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem button onClick={() => console.log('Home')}>
       <ListItemIcon>
-        <DashboardIcon />
+        <HomeIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Acasa" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <EventIcon />
       </ListItemIcon>
-      <ListItemText primary="Calendar" />
+      <ListItemText primary="Orar" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <PeopleIcon />
+        <VideoIcon />
       </ListItemIcon>
-      <ListItemText primary="Inregistrari" />
+      <ListItemText primary="Inregistrari cursuri" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
@@ -40,7 +43,7 @@ export const mainListItems = (
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Materiale" />
+      <ListItemText primary="Materiale de curs" />
     </ListItem>
   </div>
 );
@@ -50,21 +53,28 @@ export const secondaryListItems = (
     <ListSubheader inset>Contul meu</ListSubheader>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Date personale" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary="Profil" />
+      <ListItemText primary="Setari" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <LogoffIcon />
       </ListItemIcon>
-      <ListItemText primary="Setari" />
+      <ListItemText primary="Deconectare" />
+    </ListItem>
+      <hr/>
+    <ListItem>
+      <ListItemIcon>
+      <img style={{width: "25px"}} src="https://unefsb.ro/wp-content/uploads/2016/08/cropped-stema-unefs-512.png"/>
+      </ListItemIcon>
+      <ListItemText secondary="&copy; UNEFS 2020" />
     </ListItem>
   </div>
 );

@@ -3,15 +3,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Week from './Week';
+import { connect } from 'react-redux';
 
-const weeks = [
-    "5 OCT - 9 OCT",
-    "12 OCT - 16 OCT",
-    "19 OCT - 23 OCT",
-    "26 OCT - 30 OCT",
-    "2 NOV - 6 NOV",
-    "9 NOV - 13 NOV",
-]
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,17 +19,27 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Calendar(props) {
+function Calendar(props) {
 
     const classes = useStyles();
     return(
         <>
-            {weeks.map((week, index) =>(
+            {props.all.weeks && props.all.weeks.map((week, index) =>(
                 <div className={classes.root}>
-            <Typography className={classes.week}>{`WEEK ${index+1} (${week})`}</Typography>
-            <Week/>
+            <Typography className={classes.week}>{week.startDate && 
+            `WEEK ${week.weekNo} (${week.startDate.getDate()} ${week.startDate.toLocaleString('default', { month: 'short' }).toUpperCase()} - ${week.endDate.getDate()} ${week.endDate.toLocaleString('default', { month: 'short' }).toUpperCase()})`
+            }</Typography>
+            <Week {...props} weekIndex={index}/>
             </div>)
             )}
         </>
     )
 }
+
+function mapStateToProps(state) {
+    return {
+        all: state.all
+    }
+  }
+  
+  export default connect(mapStateToProps)(Calendar);

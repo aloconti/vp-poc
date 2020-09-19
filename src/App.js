@@ -3,24 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import { connect } from 'react-redux';
 
-function App() {
+const App = (props) => (
+  <div className="App">
+    {!props.all.logged ? <Login /> : <Dashboard />}
+  </div>
+);
 
-  const [loginView, setLoginView] = useState(true);
-  const [dashboardView, setDashboardView] = useState(!loginView);
-  const [elevation, setElevation] = useState(false);
-
-  const step1 = val => {
-    setLoginView(false)
-    setDashboardView(true);
+function mapStateToProps(state) {
+  return {
+      all: state.all
   }
-
-  return (
-    <div className="App">
-      {loginView && <Login step1={step1} show={loginView} elevation={elevation} setElevation={setElevation} />}
-      {dashboardView && <Dashboard step1={step1} show={dashboardView} elevation={elevation} setElevation={setElevation}/>}
-    </div>
-  );
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
