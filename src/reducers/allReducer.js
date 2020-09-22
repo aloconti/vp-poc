@@ -1,4 +1,5 @@
 const initialState = {
+    view: 'home',
     elevation: 2,
     logged: false,
     weeks: [
@@ -50,6 +51,10 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch(action.type) {
+        case "CHANGE_VIEW": 
+            return { ...state,
+                view: action.view
+            }
         case "STORE_ELEVATION":
             return { ...state,
                elevation: action.elevation,
@@ -65,9 +70,7 @@ export default function(state = initialState, action) {
             ],
             }
         case "STOP_LIVE":
-            console.log(action.live)
             let filteredLive = [...state.live].filter(item => (item.course != action.live.course))
-            console.log(filteredLive)
             return { ...state,
                 live: [...filteredLive
             ],

@@ -18,9 +18,16 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { MainListItems, SecondaryListItems } from './listItems';
 import Calendar from './Calendar';
+import Home from './Home';
+import Recordings from './Recordings';
+import Reports from './Reports';
+import Materials from './Materials';
 import { connect } from 'react-redux';
+import Loading from './Loading';
+import Profile from './Profile';
+import Settings from './Settings';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -30,7 +37,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      UNEFS
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -143,6 +150,8 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
+  const [view, setView] = React.useState('home');
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -150,6 +159,34 @@ function Dashboard(props) {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const content = () => {
+    if(loading){
+      return <Loading />
+    } else {
+      return (
+        <>
+        {view === 'home' && <Home />}
+        {view === 'calendar' && <Calendar />}
+        {view === 'recording' && <Recordings />}
+        {view === 'report' && <Reports />}
+        {view === 'material' && <Materials />}
+        {view === 'profile' && <Profile />}
+        {view === 'settings' && <Settings />}
+        </>
+      )
+    }
+  }
+
+const changeView = (view) => {
+  setLoading(true);
+  // props.dispatch({
+  //   type: "CHANGE_VIEW",
+  //   view: view
+  // })
+  setView(view)
+  setLoading(false);
+};
 
   return (
     <div className={classes.root}>
@@ -194,8 +231,8 @@ function Dashboard(props) {
         </div>
         <Divider />
         <div className={classes.Sidemenu}>
-        <List>{mainListItems}</List>
-        <List>{secondaryListItems}</List>
+        <List><MainListItems changeView={changeView}/></List>
+        <List><SecondaryListItems changeView={changeView}/></List>
         </div>
       </Drawer>
       <main className={classes.content}>
@@ -203,7 +240,7 @@ function Dashboard(props) {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3} style={{width: "100%"}}>
             {/* Chart */}
-            <Calendar />
+            {content()}
           </Grid>
           <Box pt={4}>
             <Copyright />

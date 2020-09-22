@@ -13,51 +13,54 @@ import PeopleIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LogoffIcon from '@material-ui/icons/PowerSettingsNew';
 
-export const mainListItems = (
+export function MainListItems(props) {
+    return(
   <div>
-    <ListItem button onClick={() => console.log('Home')}>
+    <ListItem button onClick={() => props.changeView('home')}>
       <ListItemIcon>
         <HomeIcon />
       </ListItemIcon>
       <ListItemText primary="Acasa" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => props.changeView('calendar')}>
       <ListItemIcon>
         <EventIcon />
       </ListItemIcon>
       <ListItemText primary="Orar" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => props.changeView('recording')}>
       <ListItemIcon>
         <VideoIcon />
       </ListItemIcon>
       <ListItemText primary="Inregistrari cursuri" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => props.changeView('report')}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Raport prezente" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => props.changeView('material')}>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Materiale de curs" />
     </ListItem>
   </div>
-);
+)
+    }
 
-export const secondaryListItems = (
+export function SecondaryListItems(props) {
+    return(
   <div>
     <ListSubheader inset>Contul meu</ListSubheader>
-    <ListItem button>
+    <ListItem button onClick={() => props.changeView('profile')}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Date personale" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => props.changeView('settings')}>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
@@ -77,4 +80,5 @@ export const secondaryListItems = (
       <ListItemText secondary="&copy; UNEFS 2020" />
     </ListItem>
   </div>
-);
+)
+    }

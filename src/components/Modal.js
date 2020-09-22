@@ -14,6 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
+import { _save, _delete } from '../utils/localStorage';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-evenly',
     flexDirection: 'column',
+    alignItems: 'center',
     width: '50%',
     margin: '0 auto',
     height: '200px'
@@ -35,36 +37,48 @@ function Modal(props) {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
+  const handleMeeting = (type) => {
+    const liveData = {
+      day: props.day,
+      month: props.month,
+      course: props.course
+    };
+    type.toUpperCase() === 'STORE' ? _save('live', liveData) : _delete('live', liveData);
+    props.dispatch({
+          type: type.toUpperCase()+"_LIVE",
+          live: liveData
+      });
   };
+  let isLive = props.all.live.length > 0 && props.all.live.find(course => course.day == props.day && course.month == props.month && course.course == props.title)
+
+  const Buttons = () => (
+    <div className={classes.button}>
+      <Button 
+        variant="contained" 
+        color="secondary" 
+        disableElevation 
+        style={{fontSize: '1.5em', borderRadius: '50px', width: '100%'}} 
+        disabled={isLive}
+        onClick={() => handleMeeting('STORE')}>
+        {isLive ? 'Meeting Started' : 'Start Meeting'}
+      </Button>
+      <Button 
+        variant="contained" 
+        color="secondary" 
+        disableElevation 
+        style={{fontSize: '1em', borderRadius: '50px'}} 
+        disabled={!isLive}
+        onClick={() => handleMeeting('STOP')}>
+        {isLive ? 'Stop Meeting' : 'Meeting Not Started'}
+      </Button>
+      <Button color="primary">Play recording</Button>
+    </div>
+  )
 
   return (
     <Dialog fullWidth onClose={handleClose} aria-labelledby="max-width-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title" style={{textAlign: 'center'}}>{props.course}</DialogTitle>
-      <div className={classes.button}>
-        <Button variant="contained" color="secondary" disableElevation style={{fontSize: '1.5em'}} onClick={() => props.dispatch({
-                type: "STORE_LIVE",
-                live: {
-                  day: props.day,
-                  month: props.month,
-                  course: props.course
-                }
-            })}>
-          Join Meeting
-        </Button>
-        <Button variant="contained" color="secondary" disableElevation style={{fontSize: '1.5em'}} onClick={() => props.dispatch({
-                type: "STOP_LIVE",
-                live: {
-                  day: props.day,
-                  month: props.month,
-                  course: props.course
-                }
-            })}>
-          Stop Meeting
-        </Button>
-        <Button color="primary">Play recording</Button>
-      </div>
+      {Buttons()}
     </Dialog>
   );
 }

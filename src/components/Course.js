@@ -64,7 +64,7 @@ class Course extends React.Component {
             <InboxIcon />
           </ListItemIcon> */}
           <ListItemText primary={this.props.title} onClick={this.handleClickOpen} />{isLive && <AlarmIcon style={{fill: 'red'}} />}
-          <Modal selectedValue={'selectedValue'} course={this.props.title} open={this.state.open} onClose={this.handleClose} {...this.modalProps} />
+          <Modal selectedValue={'selectedValue'} course={this.props.title} open={this.state.open} onClose={this.handleClose} isLive {...this.modalProps} />
         </ListItem>
   );
   }

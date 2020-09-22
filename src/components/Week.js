@@ -22,7 +22,7 @@ export default function Week(props) {
       const classes = useStyles();
     return(
             <div className={classes.week}>
-                {['Luni','Marti','Miercuri','Joi','Vineri'].map((day, index) => <Day day={day} {...props} dayIndex={index} />)}
+                {['Luni','Marti','Miercuri','Joi','Vineri'].map((day, index) => <Day day={day} {...props} dayIndex={index} key={index}/>)}
             </div>
     )
 }
