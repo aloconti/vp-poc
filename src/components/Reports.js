@@ -15,6 +15,8 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import ListIcon from '@material-ui/icons/List';
 import { Divider } from '@material-ui/core';
 import Table from './Table';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/AddCircleOutline'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
+  subheader: {
+      float: 'right',
+      marginTop: '10px',
+      cursor: 'pointer',
+  }
 }));
 
 function RNestedList(props) {
@@ -41,8 +48,9 @@ function RNestedList(props) {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
+        <ListSubheader component="div" id="nested-list-subheader" >
           Prezenta curs
+          <AddIcon className={classes.subheader}/>
         </ListSubheader>
       }
       className={classes.root}
@@ -65,6 +73,7 @@ function RNestedList(props) {
 export default function Reports(props) {
     return(
         <>
+        <h1 style={{margin: '20px auto'}}>Rapoarte prezenta</h1>
         {['Fotbal', 'Baschet', 'Handbal', 'Tenis de camp', 'Atletism', 'Volei'].map((item, index) => (
             <RNestedList course={item} key={index} />
         ))}

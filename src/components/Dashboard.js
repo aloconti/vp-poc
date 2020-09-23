@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#172f71',
   },
   appBarColorSecondary: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#172f71',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -178,6 +178,12 @@ function Dashboard(props) {
     }
   }
 
+  const logout = () => props.dispatch({
+      type: "STORE_LOGGED",
+      logged: false
+  })
+  
+
 const changeView = (view) => {
   setLoading(true);
   // props.dispatch({
@@ -232,7 +238,7 @@ const changeView = (view) => {
         <Divider />
         <div className={classes.Sidemenu}>
         <List><MainListItems changeView={changeView}/></List>
-        <List><SecondaryListItems changeView={changeView}/></List>
+        <List><SecondaryListItems changeView={changeView} logout={logout}/></List>
         </div>
       </Drawer>
       <main className={classes.content}>

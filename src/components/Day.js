@@ -62,17 +62,30 @@ export default function Day(props) {
   const classes = useStyles();
 
   const isToday = (
-      props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex == new Date('10-07-2020').getDate() &&
-      props.all.weeks[props.weekIndex].startDate.getMonth() == new Date('10-07-2020').getMonth()
+      props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex == new Date().getDate() &&
+      props.all.weeks[props.weekIndex].startDate.getMonth() == new Date().getMonth()
    )
 
+const showDate = (input) => {
+    let day, month;
+    if(props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex > 30){
+        day = (props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex) % 30;
+        month = 'OCT'
+    } else {
+        day = (props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex)
+        month = (props.all.weeks[props.weekIndex].startDate).toLocaleString('default', { month: 'short' }).toUpperCase()
+    }
+    if(input === 'day') return day;
+    if(input === 'month') return month;
+}
+
   return (
-    <Card className={clsx(classes.root, isToday && classes.today)}>
+    <Card className={clsx(classes.root, isToday && classes.today)} style={props.width && {width: props.width}}>
       <CardContent>
       <div className={classes.header}>
             <Paper className={classes.paper}>
-                <Typography className={classes.day}>{props.all.weeks[props.weekIndex].startDate.getDate() + props.dayIndex}</Typography>
-                <Typography className={classes.month}>{props.all.weeks[props.weekIndex].startDate.toLocaleString('default', { month: 'short' }).toUpperCase()}</Typography>
+                <Typography className={classes.day}>{showDate('day')}</Typography>
+                <Typography className={classes.month}>{showDate('month')}</Typography>
             </Paper>
             <Typography className={classes.weekday} variant="h5" component="h2">
             {props.day}
@@ -80,7 +93,9 @@ export default function Day(props) {
         </div>
         
         <List component="nav" aria-label="main mailbox folders">
-            {['Fotbal', 'Baschet', 'Handbal'].map((item, index) => <Course title={item} key={index} {...props} isToday={isToday}/>)}
+            {props.all.elevation === 1 ? 
+            ['Fotbal', 'Fotbal'].map((item, index) => <Course title={item} key={index} index={index} {...props} isToday={isToday} />) : 
+            ['Fotbal', 'Baschet', 'Handbal', 'Fotbal'].map((item, index) => <Course title={item} key={index} index={index} {...props} isToday={isToday}/>)}
         </List>
       </CardContent>
     </Card>

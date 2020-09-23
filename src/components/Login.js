@@ -24,7 +24,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        UNEFS
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -38,16 +38,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '440px',
+    margin: '0 auto'
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: '8px auto',
     minWidth: 120,
-    width: '100%',
+    width: '440px',
     display: 'flex',
     justifyContent: 'flex-end'
   },
   avatar: {
     margin: theme.spacing(1),
+    width: '80px',
+    height: '80px'
   },
   avatarStudent: {
     backgroundColor: theme.palette.primary.light,
@@ -65,6 +69,14 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  university: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.5rem',
+    fontWeight: '300',
+    marginTop: '40px'
+  },
 }));
 
 function Login(props) {
@@ -78,27 +90,22 @@ function Login(props) {
   };
   
   return (
-    <Container component="main" maxWidth="xs" >
+    <Container component="main" maxWidth="lg" >
       <CssBaseline />
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">User type</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={props.all.elevation}
-          onChange={handleChange}
-        >
-          <MenuItem value={2}>Student</MenuItem>
-          <MenuItem value={1}>Profesor</MenuItem>
-          <MenuItem value={0}>Admin</MenuItem>
-        </Select>
-      </FormControl>
+      
+      <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <div className={classes.university}>
+            {/* <img style={{width: "40px", marginRight: "10px"}} src="https://unefsb.ro/wp-content/uploads/2016/08/cropped-stema-unefs-512.png"/> */}
+          Universitatea Națională de Educație Fizică și Sport 
+          </div>
+          Platformă de Învățământ la Distanță
+          </Typography>
       <div className={classes.paper}>
-        <Avatar className={clsx(classes.avatar && props.all.elevation === 0 ? classes.avatarAdmin : props.all.elevation === 1 ? classes.avatarProfesor : classes.avatarStudent)}>
-          <LockOutlinedIcon />
+        <Avatar className={classes.avatar}>
+        <img style={{width: "80px"}} src="https://unefsb.ro/wp-content/uploads/2016/08/cropped-stema-unefs-512.png"/> 
         </Avatar>
         <Typography component="h1" variant="h5">
-          {props.all.elevation === 0 ? 'ADMIN ' : props.all.elevation === 1 ? 'Professor ' : 'Student '}Sign in
+          Autentificare{props.all.elevation === 0 ? 'ADMIN ' : props.all.elevation === 1 ? ' Profesor' : ' Student'}
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -107,7 +114,7 @@ function Login(props) {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email"
             name="email"
             autoComplete="email"
             autoFocus
@@ -118,14 +125,14 @@ function Login(props) {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Parola"
             type="password"
             id="password"
             autoComplete="current-password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Pastreaza autentificarea"
           />
           <Button
             // type="submit"
@@ -138,23 +145,36 @@ function Login(props) {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Autentificare
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                Ai uitat parola?
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Inregistrare"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
       <Box mt={8}>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Tip Utilizator</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={props.all.elevation}
+          onChange={handleChange}
+        >
+          <MenuItem value={2}>Student</MenuItem>
+          <MenuItem value={1}>Profesor</MenuItem>
+          <MenuItem value={0}>Admin</MenuItem>
+        </Select>
+      </FormControl>
         <Copyright />
       </Box>
     </Container>

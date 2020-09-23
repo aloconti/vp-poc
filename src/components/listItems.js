@@ -66,7 +66,7 @@ export function SecondaryListItems(props) {
       </ListItemIcon>
       <ListItemText primary="Setari" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={props.logout}>
       <ListItemIcon>
         <LogoffIcon />
       </ListItemIcon>

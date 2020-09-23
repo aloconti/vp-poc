@@ -101,6 +101,7 @@ function NestedList(props) {
 export default function Recordings(props) {
     return(
         <>
+        <h1 style={{margin: '20px auto'}}>Inregistrari</h1>
         {['Fotbal', 'Baschet', 'Handbal', 'Tenis de camp', 'Atletism', 'Volei'].map((item, index) => (
             <NestedList course={item} key={index} />
         ))}

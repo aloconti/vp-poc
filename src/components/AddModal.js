@@ -14,7 +14,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
-import { _save, _delete, _load } from '../utils/localStorage';
+import { _save, _delete } from '../utils/localStorage';
+import Fab from '@material-ui/core/Fab';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
@@ -27,9 +28,17 @@ const useStyles = makeStyles({
     margin: '0 auto',
     height: '200px'
   },
+  content: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: '40px'
+
+  }
 });
 
-function Modal(props) {
+function AddModal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
@@ -41,8 +50,7 @@ function Modal(props) {
     const liveData = {
       day: props.day,
       month: props.month,
-      course: props.course,
-      hour: props.hour
+      course: props.course
     };
     type.toUpperCase() === 'STORE' ? _save('live', liveData) : _delete('live', liveData);
     props.dispatch({
@@ -50,49 +58,24 @@ function Modal(props) {
           live: liveData
       });
   };
-  let isLive = props.all.live.length > 0 && props.all.live.find(course => course.day == props.day && course.month == props.month && course.course == props.title && course.hour == props.hour)
-  let lives = _load('live');
-  let isLocalLive = lives.length && props.isToday && lives.find(course => course.day == props.day && course.month == props.month && course.course == props.title && course.hour == props.hour)
-  const Buttons = () => (
-    <div className={classes.button}>
-      <Button 
-        variant="contained" 
-        color="secondary" 
-        disableElevation 
-        style={{fontSize: '1.5em', borderRadius: '50px', width: '100%'}} 
-        disabled={props.all.elevation === 1 ? isLocalLive : !isLocalLive}
-        onClick={() => handleMeeting('STORE')}>
-        {isLocalLive 
-          ? 
-            (props.all.elevation === 1 
-              ? 
-                'Meeting Started' 
-              : 
-                <a href={'https://video.kowalski07.party/'+props.course} target="_blank" style={{color: "#fff", textDecoration: 'none'}}>{'Join Meeting'}</a>) 
-          : (<a href={'https://video.kowalski07.party/'+props.course} target="_blank" style={{color: "#fff", textDecoration: 'none'}}>{props.all.elevation === 1 ? 'Start Meeting' : 'Meeting not started'}</a>)}
-      </Button>
-      {props.all.elevation === 1 &&<Button 
-        variant="contained" 
-        color="secondary" 
-        disableElevation 
-        style={{fontSize: '1em', borderRadius: '50px'}} 
-        disabled={!isLocalLive}
-        onClick={() => handleMeeting('STOP')}>
-        {isLocalLive ? 'Stop Meeting' : 'Meeting Not Started'}
-      </Button>}
-      <Button color="primary">Play recording</Button>
-    </div>
-  )
+  let isLive = props.all.live.length > 0 && props.all.live.find(course => course.day == props.day && course.month == props.month && course.course == props.title)
+
 
   return (
     <Dialog fullWidth onClose={handleClose} aria-labelledby="max-width-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title" style={{textAlign: 'center'}}>{props.course}</DialogTitle>
-      {Buttons()}
+      <div className={classes.content}>
+          <h3 style={{fontWeight: '300', textAlign: 'center', marginBottom: '40px'}}>Nici un fisier adaugat.<br/>
+          Folositi butonul de mai jos pentru a adauga fisiere</h3>
+          <Fab color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+      </div>
     </Dialog>
   );
 }
 
-Modal.propTypes = {
+AddModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   selectedValue: PropTypes.string.isRequired,
@@ -105,4 +88,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps)(AddModal);

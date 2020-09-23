@@ -24,10 +24,11 @@ function Calendar(props) {
     const classes = useStyles();
     return(
         <>
+        <h1 style={{margin: '20px auto'}}>Orar</h1>
             {props.all.weeks && props.all.weeks.map((week, index) =>(
                 <div className={classes.root} key={index}>
             <Typography className={classes.week}>{week.startDate && 
-            `WEEK ${week.weekNo} (${week.startDate.getDate()} ${week.startDate.toLocaleString('default', { month: 'short' }).toUpperCase()} - ${week.endDate.getDate()} ${week.endDate.toLocaleString('default', { month: 'short' }).toUpperCase()})`
+            `SAPTAMANA ${week.weekNo} (${week.startDate.getDate()} ${week.startDate.toLocaleString('default', { month: 'short' }).toUpperCase()} - ${week.endDate.getDate()} ${week.endDate.toLocaleString('default', { month: 'short' }).toUpperCase()})`
             }</Typography>
             <Week {...props} weekIndex={index}/>
             </div>)

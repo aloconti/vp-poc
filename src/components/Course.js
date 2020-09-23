@@ -10,6 +10,7 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import Modal from './Modal';
 import AlarmIcon from '@material-ui/icons/OndemandVideo';
 import { connect } from 'react-redux';
+import {_load} from '../utils/localStorage'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,20 +52,33 @@ class Course extends React.Component {
       course: this.props.title
   }
 
-  
+  hoursArr = [
+    '09:00',
+    '11:00',
+    '13:00',
+    '15:00',
+    '16:00',
+  ]
+
+  title = () => {
+    return <div><span style={{fontSize: '14px', fontWeight: '300'}}>{this.hoursArr[this.props.index]}</span><span style={{marginLeft: '20px'}}>{this.props.title}</span></div>
+  }
 
   handleClose = (value) => {
     this.setState({open: false})
   };
   render(){
     let isLive = this.props.all.live.length == this.state.live.length && this.props.isToday && this.props.all.live.find(course => course.day == this.modalProps.day && course.month == this.modalProps.month && course.course == this.props.title)
+    let lives = _load('live');
+    let isLocalLive = lives.length && this.props.isToday && lives.find(course => course.day == this.modalProps.day && course.month == this.modalProps.month && course.course == this.props.title && course.hour == this.hoursArr[this.props.index])
+    console.log(lives.find(course => course.day == this.modalProps.day && course.month == this.modalProps.month && course.course == this.props.title && course.hour == this.hoursArr[this.props.index]))
     return (
         <ListItem button>
           {/* <ListItemIcon>
             <InboxIcon />
           </ListItemIcon> */}
-          <ListItemText primary={this.props.title} onClick={this.handleClickOpen} />{isLive && <AlarmIcon style={{fill: 'red'}} />}
-          <Modal selectedValue={'selectedValue'} course={this.props.title} open={this.state.open} onClose={this.handleClose} isLive {...this.modalProps} />
+          <ListItemText primary={this.title()} onClick={this.handleClickOpen} />{isLocalLive ? <AlarmIcon style={{fill: 'red'}} /> : null}
+          <Modal selectedValue={'selectedValue'} hour={this.hoursArr[this.props.index]} course={this.props.title} open={this.state.open} onClose={this.handleClose} isLive {...this.modalProps} />
         </ListItem>
   );
   }

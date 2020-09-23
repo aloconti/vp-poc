@@ -4,38 +4,38 @@ const initialState = {
     logged: false,
     weeks: [
         {
+            startDate: new Date('09-21-2020'),
+            endDate: new Date('09-25-2020'),
+            weekNo: 1,
+            current: false,
+        },
+        {
+            startDate: new Date('09-28-2020'),
+            endDate: new Date('10-02-2020'),
+            weekNo: 2,
+            current: false,
+        },
+        {
             startDate: new Date('10-05-2020'),
             endDate: new Date('10-09-2020'),
-            weekNo: 1,
+            weekNo: 3,
             current: false,
         },
         {
             startDate: new Date('10-12-2020'),
             endDate: new Date('10-16-2020'),
-            weekNo: 2,
+            weekNo: 4,
             current: false,
         },
         {
             startDate: new Date('10-19-2020'),
             endDate: new Date('10-23-2020'),
-            weekNo: 3,
+            weekNo: 5,
             current: false,
         },
         {
             startDate: new Date('10-26-2020'),
             endDate: new Date('10-30-2020'),
-            weekNo: 4,
-            current: false,
-        },
-        {
-            startDate: new Date('11-02-2020'),
-            endDate: new Date('11-06-2020'),
-            weekNo: 5,
-            current: false,
-        },
-        {
-            startDate: new Date('11-09-2020'),
-            endDate: new Date('11-13-2020'),
             weekNo: 6,
             current: false,
         },
