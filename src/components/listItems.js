@@ -34,12 +34,12 @@ export function MainListItems(props) {
       </ListItemIcon>
       <ListItemText primary="Inregistrari cursuri" />
     </ListItem>
-    <ListItem button onClick={() => props.changeView('report')}>
+    {props.all.elevation == 1 &&<ListItem button onClick={() => props.changeView('report')}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Raport prezente" />
-    </ListItem>
+    </ListItem>}
     <ListItem button onClick={() => props.changeView('material')}>
       <ListItemIcon>
         <LayersIcon />

@@ -66,10 +66,10 @@ function AddModal(props) {
       <DialogTitle id="simple-dialog-title" style={{textAlign: 'center'}}>{props.course}</DialogTitle>
       <div className={classes.content}>
           <h3 style={{fontWeight: '300', textAlign: 'center', marginBottom: '40px'}}>Nici un fisier adaugat.<br/>
-          Folositi butonul de mai jos pentru a adauga fisiere</h3>
-          <Fab color="primary" aria-label="add">
+          {props.all.elevation === 1 && 'Folositi butonul de mai jos pentru a adauga fisiere'}</h3>
+          {props.all.elevation === 1 && <Fab color="primary" aria-label="add">
         <AddIcon />
-      </Fab>
+      </Fab>}
       </div>
     </Dialog>
   );

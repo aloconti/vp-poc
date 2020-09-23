@@ -237,7 +237,7 @@ const changeView = (view) => {
         </div>
         <Divider />
         <div className={classes.Sidemenu}>
-        <List><MainListItems changeView={changeView}/></List>
+        <List><MainListItems changeView={changeView} {...props}/></List>
         <List><SecondaryListItems changeView={changeView} logout={logout}/></List>
         </div>
       </Drawer>
