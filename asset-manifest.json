@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/vp-poc/static/css/main.5f361e03.chunk.css",
-    "main.js": "/vp-poc/static/js/main.0ed5f3ca.chunk.js",
-    "main.js.map": "/vp-poc/static/js/main.0ed5f3ca.chunk.js.map",
+    "main.js": "/vp-poc/static/js/main.d7de7023.chunk.js",
+    "main.js.map": "/vp-poc/static/js/main.d7de7023.chunk.js.map",
     "runtime-main.js": "/vp-poc/static/js/runtime-main.2d265f57.js",
     "runtime-main.js.map": "/vp-poc/static/js/runtime-main.2d265f57.js.map",
     "static/js/2.f7334276.chunk.js": "/vp-poc/static/js/2.f7334276.chunk.js",
     "static/js/2.f7334276.chunk.js.map": "/vp-poc/static/js/2.f7334276.chunk.js.map",
     "index.html": "/vp-poc/index.html",
-    "precache-manifest.8f2e09f9501f13eee60220f8a2b1800f.js": "/vp-poc/precache-manifest.8f2e09f9501f13eee60220f8a2b1800f.js",
+    "precache-manifest.22cc7b87180964f2a2c63a52e69404da.js": "/vp-poc/precache-manifest.22cc7b87180964f2a2c63a52e69404da.js",
     "service-worker.js": "/vp-poc/service-worker.js",
     "static/css/main.5f361e03.chunk.css.map": "/vp-poc/static/css/main.5f361e03.chunk.css.map",
     "static/js/2.f7334276.chunk.js.LICENSE.txt": "/vp-poc/static/js/2.f7334276.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.2d265f57.js",
     "static/js/2.f7334276.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.0ed5f3ca.chunk.js"
+    "static/js/main.d7de7023.chunk.js"
   ]
 }
